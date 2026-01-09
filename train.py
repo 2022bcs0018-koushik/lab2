@@ -5,13 +5,13 @@ import joblib
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
 from sklearn.metrics import mean_squared_error, r2_score
 
 # -----------------------------
 # Paths
 # -----------------------------
-DATA_PATH = "dataset/winequality-white.csv"
+DATA_PATH = "dataset/winequality-red.csv"
 OUTPUT_DIR = "outputs"
 MODEL_PATH = os.path.join(OUTPUT_DIR, "model.pkl")
 RESULT_PATH = os.path.join(OUTPUT_DIR, "results.json")
@@ -40,9 +40,9 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # -----------------------------
-# Model Training
+# Model Training (Lasso)
 # -----------------------------
-model = LinearRegression()
+model = Lasso(alpha=0.1)
 model.fit(X_train, y_train)
 
 # -----------------------------
@@ -58,6 +58,8 @@ r2 = r2_score(y_test, y_pred)
 joblib.dump(model, MODEL_PATH)
 
 results = {
+    "model": "Lasso",
+    "alpha": 0.1,
     "MSE": mse,
     "R2": r2
 }
@@ -66,7 +68,9 @@ with open(RESULT_PATH, "w") as f:
     json.dump(results, f, indent=4)
 
 # -----------------------------
-# Print Metrics (Important!)
+# Print Metrics (IMPORTANT)
 # -----------------------------
+print(f"Model: Lasso")
+print(f"Alpha: 0.1")
 print(f"MSE: {mse}")
 print(f"R2: {r2}")
