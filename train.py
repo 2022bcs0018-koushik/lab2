@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 # -----------------------------
 # Paths
 # -----------------------------
-DATA_PATH = "dataset/winequality-red.csv"
+DATA_PATH = "dataset/winequality-white.csv"
 OUTPUT_DIR = "outputs"
 MODEL_PATH = os.path.join(OUTPUT_DIR, "model.pkl")
 RESULT_PATH = os.path.join(OUTPUT_DIR, "results.json")
