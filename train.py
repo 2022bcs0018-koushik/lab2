@@ -33,12 +33,13 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # -----------------------------
-# Model Training (Random Forest)
+# Train Best Model
 # -----------------------------
 model = RandomForestRegressor(
-    n_estimators=100,
+    n_estimators=200,
     max_depth=None,
-    random_state=42
+    random_state=42,
+    n_jobs=-1
 )
 
 model.fit(X_train, y_train)
@@ -56,9 +57,9 @@ r2 = r2_score(y_test, y_pred)
 joblib.dump(model, MODEL_PATH)
 
 results = {
-    "model": "RandomForestRegressor",
-    "n_estimators": 100,
-    "max_depth": None,
+    "best_model": "RandomForestRegressor",
+    "n_estimators": 200,
+    "test_split": 0.2,
     "MSE": mse,
     "R2": r2
 }
@@ -69,7 +70,7 @@ with open(RESULT_PATH, "w") as f:
 # -----------------------------
 # Print Metrics (REQUIRED)
 # -----------------------------
-print("Model: RandomForestRegressor")
-print(f"n_estimators: 100")
+print("Best Model: RandomForestRegressor")
+print(f"n_estimators: 200")
 print(f"MSE: {mse}")
 print(f"R2: {r2}")
